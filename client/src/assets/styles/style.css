@@ -6,27 +6,37 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #272727;
 }
-#root{
+#root {
   min-height: 100vh;
 }
-body{
+body {
   height: 100%;
 }
 
-
-.sidebar_comp{
+.sidebar_comp {
   display: flex;
   align-items: center;
+  position: relative;
   gap: 8px;
   padding: 7px 12px;
   font-size: 0.875rem;
   line-height: 1.25rem;
   transition: background 50ms;
   border-radius: 4px;
-  
+}
+.sidebar_comp.active {
+  background-color: #2d2d2d;
+}
+.sidebar_comp.active::before {
+  content: "";
+  position: absolute;
+  background-color: #73baed;
+  width: 3px;
+  height: 15px;
+  border-radius: 999px;
+  left: 0;
 }
 
-.sidebar_comp:hover{
+.sidebar_comp:hover {
   background-color: #2d2d2d;
-  
 }
