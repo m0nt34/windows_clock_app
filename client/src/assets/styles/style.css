@@ -40,3 +40,42 @@ body {
 .sidebar_comp:hover {
   background-color: #2d2d2d;
 }
+
+.laps-container {
+  overflow-y: auto;
+  height: 400px;
+}
+.laps-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.laps-container::-webkit-scrollbar-track {
+  border-radius: 4px;
+}
+
+.laps-container::-webkit-scrollbar-thumb {
+  background-color: #3b3b3b;
+  border-radius: 4px;
+}
+
+.timer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
+  gap: 14px;
+}
+
+.timer-box {
+  height: 325px;
+
+  background-color: #323232;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  transition: background 100ms, box-shadow 200ms, transform 150ms;
+}
+
+.timer-box:hover {
+  background-color: #2e2e2e;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  border: 1px solid #3e3e3e;
+}

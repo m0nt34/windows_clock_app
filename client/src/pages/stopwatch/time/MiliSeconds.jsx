@@ -9,9 +9,8 @@ const MiliSeconds = () => {
 
   const startStopwatch = () => {
     interval.current = setInterval(() => {
-
       incrementMilliseconds();
-    }, 20);
+    }, 10);
   };
 
   const stopStopwatch = () => {
@@ -20,13 +19,11 @@ const MiliSeconds = () => {
 
   useEffect(() => {
     if (play) {
-      
       startStopwatch();
     } else {
       stopStopwatch();
     }
 
-    
     return () => {
       stopStopwatch();
     };

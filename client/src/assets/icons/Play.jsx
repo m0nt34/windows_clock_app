@@ -1,12 +1,13 @@
 import React from "react";
 
-const Play = () => {
+const Play = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1.75em"
-      height="1.75em"
+      width="1em"
+      height="1em"
       viewBox="0 0 36 36"
+      className={className}
     >
       <path
         fill="black"

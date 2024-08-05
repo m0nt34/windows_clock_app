@@ -3,9 +3,15 @@ import MiliSeconds from "./MiliSeconds";
 import Seconds from "./Seconds";
 import Minutes from "./Minutes";
 import Hours from "./Hours";
+import { usePlay } from "../../../store/useStartStopwatch";
 const Time = () => {
+  const { play } = usePlay();
   return (
-    <div className="flex justify-center items-end text-[110px] select-none">
+    <div
+      className={`flex justify-center items-end text-[110px] select-none ${
+        play ? null : "text-[#b8b8b8]"
+      }`}
+    >
       <div className="flex justify-center relative ">
         <Hours />
         <p className="absolute text-2xl bottom-[-8px]">hr</p>

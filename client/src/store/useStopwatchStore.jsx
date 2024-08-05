@@ -8,7 +8,7 @@ export const useStopwatchStore = create((set) => ({
   reset: false,
   incrementMilliseconds: () =>
     set((state) => {
-      const newMilliseconds = state.milliseconds + 2;
+      const newMilliseconds = state.milliseconds + 1;
       const shouldIncrementSeconds = newMilliseconds === 100;
       const newSeconds = shouldIncrementSeconds
         ? state.seconds + 1
@@ -25,7 +25,6 @@ export const useStopwatchStore = create((set) => ({
           seconds: shouldIncrementSeconds ? newSeconds % 60 : newSeconds,
           minutes: shouldIncrementMinutes ? newMinutes % 60 : newMinutes,
           hours: shouldIncrementHours ? newHours : state.hours,
-          reset: true,
         };
       } else {
         return {
@@ -36,5 +35,6 @@ export const useStopwatchStore = create((set) => ({
         };
       }
     }),
+  setResetToTrue: () => set({ reset: true }),
   setResetToFalse: () => set({ reset: false }),
 }));

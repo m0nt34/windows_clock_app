@@ -5,34 +5,53 @@ import Stop from "../../assets/icons/Stop";
 import Goback from "../../assets/icons/Goback";
 import { usePlay } from "../../store/useStartStopwatch";
 import { useStopwatchStore } from "../../store/useStopwatchStore";
+import { useTLTrigger } from "../../store/useTimeLapTrigger";
 const Buttons = () => {
   const { play, setPlay } = usePlay();
-  const { reset, setResetToFalse } = useStopwatchStore();
-  const handleClick = () => {};
+  const { reset, setResetToTrue, setResetToFalse, incrementMilliseconds } =
+    useStopwatchStore();
+  const { setTLtoTrue } = useTLTrigger();
+  const handleClick = () => {
+    setResetToTrue();
+    setPlay();
+  };
+  const handleReset = () => {
+    setResetToFalse();
+    if (play) {
+      setTimeout(() => {
+        setPlay();
+      }, 15);
+    } else {
+      incrementMilliseconds();
+    }
+  };
+
   return (
     <div className="flex gap-[24px]">
       <button
         type="button"
-        onClick={setPlay}
-        className="flex items-center justify-center p-5 rounded-full bg-customColor-blue"
+        onClick={handleClick}
+        className="flex items-center justify-center p-[22px] rounded-full bg-customColor-blue hover:bg-[#6daad9]"
       >
-        {play ? <Stop /> : <Play />}
+        {play ? <Stop className="w-6 h-6"/> : <Play className="w-6 h-6"/>}
       </button>
       <button
         type="button"
+        onClick={setTLtoTrue}
         className={`flex items-center justify-center p-[18px] rounded-full bg-[#343434] border-[3px] border-[#3d3d3d] ${
-          play ? "opacity-50 pointer-events-none" : null
+          !play ? "opacity-50 pointer-events-none" : null
         }`}
       >
         <Flag />
       </button>
       <button
         type="button"
-        className={`flex items-center justify-center p-[18px] rounded-full bg-[#343434] border-[3px] border-[#3d3d3d] ${
+        onClick={handleReset}
+        className={`flex items-center justify-center p-[20px] rounded-full bg-[#343434] border-[3px] border-[#3d3d3d] ${
           !reset && !play ? "opacity-50 pointer-events-none" : null
         }`}
       >
-        <Goback />
+        <Goback className="w-6 h-6"/>
       </button>
     </div>
   );
