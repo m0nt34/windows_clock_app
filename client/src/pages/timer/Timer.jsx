@@ -18,11 +18,11 @@ const Timer = () => {
       <div className="timer-container">
         {timers.map((timer, i) => (
           <div key={i}>
-            <TimeDown name={timer.name} seconds={timer.secs} />
+            <TimeDown id={i} name={timer.name} seconds={timer.secs} />
           </div>
         ))}
       </div>
-      {edit && <Popup setTimers={setTimers} />}
+      <Popup setTimers={setTimers} />
       <AddEditButtons />
     </div>
   );
