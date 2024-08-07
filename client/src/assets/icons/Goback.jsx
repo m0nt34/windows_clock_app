@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 
-const Goback = ({className,color="white"}) => {
+const Goback = ({ className, color = "white" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -21,4 +21,4 @@ const Goback = ({className,color="white"}) => {
   );
 };
 
-export default Goback;
+export default memo(Goback);

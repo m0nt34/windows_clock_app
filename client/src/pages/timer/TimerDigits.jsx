@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, memo } from "react";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import Goback from "../../assets/icons/Goback";
 import Play from "../../assets/icons/Play";
 import Stop from "../../assets/icons/Stop";
@@ -6,17 +8,22 @@ import { secondsToTime } from "../../utils/secondsToTime";
 import { useEdit } from "../../store/useEditTimer";
 import { getTimerEndTime } from "../../utils/getTimerEndTime";
 import Bell from "../../assets/icons/Bell";
-const TimerDigits = ({ seconds }) => {
+const TimerDigits = ({ seconds, setPlaying }) => {
   const [play, setPlay] = useState(false);
   const [secs, setSecs] = useState(seconds);
   const reset = useRef(false);
   const inter = useRef(null);
   const { edit } = useEdit();
+  useEffect(() => {
+    setSecs(seconds);
+  }, [seconds]);
   const handlePlay = () => {
     setPlay((prev) => !prev);
     if (secs === 0) {
       handleReset();
+      setPlaying(false);
     } else if (!play) {
+      setPlaying(true);
       reset.current = true;
       inter.current = setInterval(() => {
         setSecs((prev) => {
@@ -29,6 +36,7 @@ const TimerDigits = ({ seconds }) => {
         });
       }, 1000);
     } else {
+      setPlaying(false);
       clearInterval(inter.current);
     }
   };
@@ -41,23 +49,37 @@ const TimerDigits = ({ seconds }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div
-        className={`flex relative flex-col items-center justify-center text-center w-[9ch] font-medium text-[40px] border-[13px] border-[#3a3a3a] rounded-full px-3 py-[60px] ${
-          edit ? "text-[#7d7d7d]" : null
-        }`}
-      >
-        {secondsToTime(secs)}
-
-        {play && (
-          <div
-            className={`absolute flex items-center justify-center gap-1 bottom-10 bg-[#3a3a3a] text-xs w-fit font-normal py-1 px-[10px] rounded-full`}
+      <div className="relative flex flex-col items-center justify-center text-center w-[9ch] font-medium  rounded-full px-3 ">
+        <div className="relative flex items-center justify-center w-[210px] h-[210px]">
+          <CircularProgressbar
+            value={(secs / seconds) * 100}
+            strokeWidth={6.5}
+            styles={buildStyles({
+              trailColor: "#3a3a3a",
+              pathColor: reset.current ? "#73baed" : "#3a3a3a",
+              textColor: edit ? "#7d7d7d" : "#1b1a1a",
+              pathTransitionDuration: 1,
+            })}
+          />
+          <p
+            className={`absolute flex items-center justify-center w-full h-full text-center text-[40px] font-semibold ${
+              edit ? "text-[#7d7d7d]" : "text-[#fff]"
+            }`}
           >
-            <Bell size={12} edit={edit} />
-            {getTimerEndTime(secs)}
-          </div>
-        )}
+            {secondsToTime(secs)}
+          </p>
+          {play && (
+            <div
+              className={`absolute flex items-center justify-center gap-1 bottom-[50px] bg-[#3a3a3a] text-xs w-fit font-normal py-1 px-[10px] rounded-full ${
+                edit ? "text-[#7d7d7d]" : "text-[#fff]"
+              }`}
+            >
+              <Bell size={12} edit={edit} />
+              {getTimerEndTime(secs)}
+            </div>
+          )}
+        </div>
       </div>
-
       <div className="flex w-full">
         <div className="flex w-full items-center justify-center gap-2">
           <button
@@ -90,4 +112,4 @@ const TimerDigits = ({ seconds }) => {
   );
 };
 
-export default TimerDigits;
+export default memo(TimerDigits);

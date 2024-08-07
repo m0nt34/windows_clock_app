@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 const Play = ({ className, edit = false }) => {
   return (
@@ -18,4 +18,4 @@ const Play = ({ className, edit = false }) => {
   );
 };
 
-export default Play;
+export default memo(Play);
