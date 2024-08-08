@@ -93,3 +93,14 @@ body {
   transform: translateY(-5px);
   border: 1px solid #3e3e3e;
 }
+
+.glass-effect {
+  background: rgb(44, 44, 44,0.8); 
+  backdrop-filter: blur(18px); 
+  border: 1px solid rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.custop-hover:hover{
+  background:linear-gradient(90deg,rgba(151, 151, 151, 0.25),rgb(151, 151, 151,0.1)) ;
+}

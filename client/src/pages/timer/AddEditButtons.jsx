@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Pen from "../../assets/icons/Pen";
 import Plus from "../../assets/icons/Plus";
 import Check from "../../assets/icons/Check";
@@ -30,4 +30,4 @@ const AddEditButtons = () => {
   );
 };
 
-export default AddEditButtons;
+export default memo(AddEditButtons);
