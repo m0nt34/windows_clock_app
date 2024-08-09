@@ -12,7 +12,9 @@ const Popup = ({ setZones }) => {
     const zoneName = zoneRef.current.getName();
 
     if (TimeZones.includes(zoneName)) {
-      setZones((prev) => [...prev, zoneName]);
+      setZones((prev) =>
+        prev.includes(zoneName) ? prev : [...prev, zoneName]
+      );
       setShow();
     }
   };

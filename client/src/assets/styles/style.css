@@ -26,7 +26,6 @@ body {
   border-radius: 4px;
 }
 
-
 .sidebar_comp {
   display: flex;
   align-items: center;
@@ -95,12 +94,36 @@ body {
 }
 
 .glass-effect {
-  background: rgb(44, 44, 44,0.8); 
-  backdrop-filter: blur(18px); 
-  border: 1px solid rgba(0, 0, 0, 0.2); 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  background: rgb(44, 44, 44, 0.8);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.custop-hover:hover{
-  background:linear-gradient(90deg,rgba(151, 151, 151, 0.25),rgb(151, 151, 151,0.1)) ;
+.custop-hover:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(151, 151, 151, 0.25),
+    rgb(151, 151, 151, 0.1)
+  );
+}
+.alarm-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(306px, 1fr));
+  gap: 14px;
+}
+
+.alarm-box {
+  height: 185px;
+  background-color: #323232;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  transition: background 100ms, box-shadow 200ms, transform 150ms;
+}
+.alarm-box:hover {
+  background-color: #2e2e2e;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  border: 1px solid #3e3e3e;
 }

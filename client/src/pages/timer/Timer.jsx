@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TimeDown from "./TimeDown";
 import Popup from "./popup/Popup";
-import AddEditButtons from "./AddEditButtons";
+import AddEditButtons from "../../components/AddEditButtons";
 
 const Timer = () => {
   const [timers, setTimers] = useState([

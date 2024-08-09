@@ -4,7 +4,7 @@ import Moon from "../../assets/icons/Moon";
 import BinTrash from "../../assets/icons/BinTrash";
 import { getCurrentTimeInTimeZone } from "../../utils/getTimeByTimeZone";
 import { useEdit } from "../../store/useEditTimer";
-const TimeZoneBoards = ({ zone }) => {
+const TimeZoneBoards = ({ zone, setZones }) => {
   const { edit } = useEdit();
   const [currentTime, setCurrentTime] = useState(
     getCurrentTimeInTimeZone(zone)
@@ -20,19 +20,28 @@ const TimeZoneBoards = ({ zone }) => {
   }, []);
   const checkIfMorning = () => {
     if (
-      (currentTime.hour >= 8 && currentTime.dayPeriod === "PM") ||
-      (currentTime.hour === 12 && currentTime.dayPeriod === "PM") ||
-      (currentTime.hour <= 5 && currentTime.dayPeriod === "AM")
+      (parseInt(currentTime.hour) >= 8 && currentTime.dayPeriod === "PM") ||
+      (parseInt(currentTime.hour) === 12 && currentTime.dayPeriod === "AM") ||
+      (parseInt(currentTime.hour) <= 5 && currentTime.dayPeriod === "AM")
     ) {
       return false;
     } else {
       return true;
     }
   };
-
+  const handleDelete = () => {
+    if (edit) {
+      setZones((prev) => prev.filter((zn) => zn !== zone));
+    }
+  };
   return (
-    <div className="flex items-center gap-8 px-3 w-full bg-[#323232] h-[65px] rounded-[4px] border border-[#242424] hover:bg-[#2e2e2e] hover:border-[#363636]">
-      <div className={edit ? "hover:bg-[#3e3e3e] transition rounded-md p-2" : "p-2"}>
+    <div className="flex items-center gap-4 px-3 w-full bg-[#323232] h-[65px] rounded-[4px] border border-[#242424] hover:bg-[#2e2e2e] hover:border-[#363636]">
+      <div
+        className={
+          edit ? "hover:bg-[#3e3e3e] transition rounded-md p-2" : "p-2"
+        }
+        onClick={handleDelete}
+      >
         {edit ? <BinTrash className="w-[19.19px]" /> : day ? <Sun /> : <Moon />}
       </div>
       <div className="flex items-end text-[#bebebe] text-xl font-bold w-20">
@@ -41,7 +50,7 @@ const TimeZoneBoards = ({ zone }) => {
           {currentTime.dayPeriod}
         </p>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col ml-[15px]">
         <span className="text-[15px] text-[#eee]">{zone}</span>
         <p className="text-[#d5d5d5] text-xs">
           {currentTime.day + "/" + currentTime.month + "/" + currentTime.year}

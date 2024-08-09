@@ -1,9 +1,9 @@
 import React, { memo } from "react";
-import Pen from "../../assets/icons/Pen";
-import Plus from "../../assets/icons/Plus";
-import Check from "../../assets/icons/Check";
-import { useEdit } from "../../store/useEditTimer";
-import { useShowPopup } from "../../store/useShopPopup";
+import Pen from "../assets/icons/Pen";
+import Plus from "../assets/icons/Plus";
+import Check from "../assets/icons/Check";
+import { useEdit } from "../store/useEditTimer";
+import { useShowPopup } from "../store/useShopPopup";
 
 const AddEditButtons = () => {
   const { setEdit, edit } = useEdit();
