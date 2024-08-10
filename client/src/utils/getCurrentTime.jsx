@@ -11,7 +11,7 @@ export const getCurrentTime = () => {
 
   const formatter = new Intl.DateTimeFormat([], options);
   const formattedDate = formatter.formatToParts(new Date());
-  console.log(formattedDate);
+  
   
   const dateTime = {
     year: "",

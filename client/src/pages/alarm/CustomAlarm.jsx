@@ -5,16 +5,29 @@ import { useShowPopup } from "../../store/useShopPopup";
 import { padZero } from "../../utils/PadZero";
 import ShowWeekDays from "./ShowWeekDays";
 import Bell from "../../assets/icons/Bell";
+import CalculateAlarmTriggerTime from "./CalculateAlarmTriggerTime";
 const CustomAlarm = ({ id, alarm, setAlarms }) => {
   const { setShow } = useShowPopup();
   const { edit, setEditTimer } = useEdit();
 
-  const handleDelete = (e) => {};
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    setAlarms((prev) => {
+      return prev.filter((_, i) => id !== i);
+    });
+  };
   const handleEdit = () => {
     if (edit) {
       setEditTimer(id);
       setShow();
     }
+  };
+  const handleTurnDisabled = () => {
+    setAlarms((prev) =>
+      prev.map((alarm, i) =>
+        id === i ? { ...alarm, disabled: !alarm.disabled } : alarm
+      )
+    );
   };
   return (
     <div
@@ -23,8 +36,8 @@ const CustomAlarm = ({ id, alarm, setAlarms }) => {
     >
       <header className="flex w-full items-start justify-between mb-[5px]  text-white">
         <span
-          className={`text-[65px] flex items-end font-semibold gap-[5px] leading-[45px] ${
-            edit ? "text-[#7d7d7d]" : null
+          className={`text-[70px] flex items-end font-semibold gap-[5px] leading-[55px] ${
+            edit || alarm.disabled ? "text-[#7d7d7d]" : null
           }`}
         >
           {alarm.time.hours}:{padZero(alarm.time.minutes)}
@@ -43,23 +56,48 @@ const CustomAlarm = ({ id, alarm, setAlarms }) => {
           ) : (
             <button
               type="button"
-              className="relative flex items-center h-5 w-10 border border-[#a1a1a1] rounded-full group"
+              onClick={handleTurnDisabled}
+              className={`relative flex items-center h-5 w-10 border ${
+                alarm.disabled
+                  ? "border-[#a1a1a1]"
+                  : "border-customColor-blue bg-customColor-blue"
+              } rounded-full group`}
             >
-              <div className="absolute left-1 h-3 w-3 bg-[#d1d1d1] rounded-full group-hover:h-[14px] group-hover:w-[14px] group-hover:left-[3px] group-active:h-[14px] group-active:w-[18px] group-active:left-[3px] transition-all duration-300" />
+              <div
+                className={`absolute ${
+                  alarm.disabled
+                    ? "left-1 group-hover:left-[3px] group-active:left-[3px] bg-[#d1d1d1]"
+                    : "right-1 group-hover:right-[3px] group-active:right-[3px] bg-black"
+                } h-3 w-3 rounded-full group-hover:h-[14px] group-hover:w-[14px] group-active:h-[14px] group-active:w-[18px] `}
+              />
             </button>
           )}
         </div>
       </header>
-      <div className="w-full flex">
-        <Bell size={15} edit={edit} />
+      <div
+        className={`w-full flex items-end gap-2 mt-2 ${
+          edit || alarm.disabled ? "text-[#7d7d7d]" : null
+        }`}
+      >
+        <Bell size={16} edit={edit || alarm.disabled} />
+        <CalculateAlarmTriggerTime alarm={alarm} />
       </div>
-      <div className="w-full text-white font-semibold text-[22px]">
+      <div
+        className={`w-full ${
+          edit || alarm.disabled ? "text-[#7d7d7d]" : null
+        } font-semibold text-[22px]`}
+      >
         {alarm.name}
       </div>
       <div className="flex w-full">
         <div className="flex max-w-[280px] w-full justify-between">
           {alarm.days.days.map((day, i) => (
-            <ShowWeekDays key={i} day={day} repeat={alarm.days.repeat} />
+            <ShowWeekDays
+              key={i}
+              day={day}
+              repeat={alarm.days.repeat}
+              disabled={alarm.disabled}
+            />
           ))}
         </div>
       </div>

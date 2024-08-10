@@ -109,6 +109,7 @@ body {
 }
 .alarm-container {
   display: grid;
+  height: fit-content;
   width: 100%;
   grid-template-columns: repeat(auto-fit, minmax(306px, 1fr));
   gap: 14px;

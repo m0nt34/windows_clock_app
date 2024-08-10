@@ -42,7 +42,7 @@ const TimeZoneBoards = ({ zone, setZones }) => {
         }
         onClick={handleDelete}
       >
-        {edit ? <BinTrash className="w-[19.19px]" /> : day ? <Sun /> : <Moon />}
+        {edit ? <BinTrash className="w-[20px]" /> : day ? <Sun /> : <Moon size={20}/>}
       </div>
       <div className="flex items-end text-[#bebebe] text-xl font-bold w-20">
         {currentTime.hour + ":" + currentTime.minute}

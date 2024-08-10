@@ -42,8 +42,8 @@ const SearchBar = forwardRef((props, ref) => {
         </button>
       </div>
       {search.length !== 0 && (
-        <div className="absolute bg-[#2c2c2c] max-h-60 w-full top-[45px] rounded-bl-[10px] rounded-br-[10px] glass-effect">
-          <ul className="flex flex-col overflow-y-auto h-full">
+        <div className="absolute bg-[#2c2c2c] max-h-60 w-full top-[45px] overflow-y-auto rounded-bl-[10px] rounded-br-[10px] glass-effect">
+          <ul className="flex flex-col h-full">
             {zoneList.map((zone) => (
               <li
                 onClick={() => {

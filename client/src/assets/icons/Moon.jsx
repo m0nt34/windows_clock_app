@@ -1,11 +1,11 @@
 import React, { memo } from "react";
 
-const Moon = () => {
+const Moon = ({ size = "1.2em" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1.2em"
-      height="1.2em"
+      width={size}
+      height={size}
       viewBox="0 0 28 28"
     >
       <path

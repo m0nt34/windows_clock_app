@@ -104,7 +104,7 @@ const Alarm = () => {
     },
   ]);
   return (
-    <div className="flex flex-grow overflow-y-auto h-fit py-[40px] px-[50px]">
+    <div className="flex flex-grow overflow-y-auto h-screen py-[40px] px-[50px]">
       <div className="alarm-container">
         {alarms.map((alarm, i) => (
           <CustomAlarm key={i} id={i} alarm={alarm} setAlarms={setAlarms} />

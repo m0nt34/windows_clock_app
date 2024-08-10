@@ -22,21 +22,25 @@ const Popup = ({ setAlarms }) => {
       days: setDaysRef.current.getDays(),
       disabled: false,
     };
-    console.log(setTimeRef.current.getTime());
-
-    console.log(setNameRef.current.getName());
-
-    console.log(setDaysRef.current.getDays());
-
-    setAlarms((prev) => [...prev, newAlarmObj]);
+    if (edit) {
+      handleEdit(newAlarmObj);
+    } else {
+      setAlarms((prev) => [...prev, newAlarmObj]);
+    }
     setShow();
   };
-  const handleEdit = (updatedTimer) => {
+  const handleEdit = (newAlarmObj) => {
     setAlarms((prev) =>
-      prev.map((timer, i) =>
+      prev.map((alarm, i) =>
         i === editTimer
-          ? { ...timer, name: updatedTimer.name, secs: updatedTimer.secs }
-          : timer
+          ? {
+              ...alarm,
+              time: newAlarmObj.time,
+              name: newAlarmObj.name,
+              days: newAlarmObj.days,
+              disabled: alarm.disabled,
+            }
+          : alarm
       )
     );
   };
@@ -53,7 +57,7 @@ const Popup = ({ setAlarms }) => {
         >
           <div>
             <header className="flex justify-between items-center text-lg font-medium ">
-              <p className="py-2">{edit ? "Edit timer" : "Add new timer"}</p>
+              <p className="py-2">{edit ? "Edit alarm" : "Add new alarm"}</p>
               {edit && (
                 <button
                   onClick={handleDelete}
