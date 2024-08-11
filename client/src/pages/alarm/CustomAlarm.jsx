@@ -6,10 +6,11 @@ import { padZero } from "../../utils/PadZero";
 import ShowWeekDays from "./ShowWeekDays";
 import Bell from "../../assets/icons/Bell";
 import CalculateAlarmTriggerTime from "./CalculateAlarmTriggerTime";
+import { useDismissPopup } from "../../store/useDismissPopup";
 const CustomAlarm = ({ id, alarm, setAlarms }) => {
   const { setShow } = useShowPopup();
   const { edit, setEditTimer } = useEdit();
-
+  const { setShowDismiss } = useDismissPopup();
   const handleDelete = (e) => {
     e.stopPropagation();
     setAlarms((prev) => {
@@ -28,6 +29,7 @@ const CustomAlarm = ({ id, alarm, setAlarms }) => {
         id === i ? { ...alarm, disabled: !alarm.disabled } : alarm
       )
     );
+    setShowDismiss();
   };
   return (
     <div

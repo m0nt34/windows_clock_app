@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AddEditButtons from "../../components/AddEditButtons";
 import Popup from "./popup/Popup";
 import CustomAlarm from "./CustomAlarm";
+import DismissPopup from "../../components/DismissPopup";
 const Alarm = () => {
   const [alarms, setAlarms] = useState([
     {
@@ -112,6 +113,7 @@ const Alarm = () => {
       </div>
       <AddEditButtons />
       <Popup setAlarms={setAlarms} />
+      <DismissPopup />
     </div>
   );
 };

@@ -1,12 +1,13 @@
 import React, { memo } from "react";
 
-const Xmark = ({ color = "white" }) => {
+const Xmark = ({ color = "white" ,className=""}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="1.3em"
       height="1.3em"
       viewBox="0 0 24 24"
+      className={className}
     >
       <path
         fill={color}

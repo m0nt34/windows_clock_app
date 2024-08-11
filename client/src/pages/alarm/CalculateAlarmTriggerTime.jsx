@@ -1,47 +1,47 @@
-import React from "react";
-import { getCurrentTime } from "../../utils/getCurrentTime"; 
+import React, { useEffect, useState } from "react";
+import { getCurrentTime } from "../../utils/getCurrentTime";
+import {
+  calculateTimeDifferenceForNonRepeat,
+  calculateTimeDifferenceForRepeat,
+} from "../../utils/getAlarmTime";
+import { checkIfPlural } from "../../utils/checkIfPlural";
 
-const calculateTimeDifference = (currentTime, alarmTime) => {
-  const now = new Date(
-    `${currentTime.month} ${currentTime.day}, ${currentTime.year} ${currentTime.hour}:${currentTime.minute} ${currentTime.dayPeriod}`
-  );
-  console.log(now);
-  
-  const alarmDate = new Date(
-    `${now.toDateString()} ${alarmTime.hour}:${alarmTime.minute} ${alarmTime.period}`
-  );
-  console.log(alarmDate);
-  
-  if (alarmDate <= now) {
-    alarmDate.setDate(alarmDate.getDate() + 1);
-  }
-
-  const diffInMs = alarmDate - now;
-
-  const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
-  const diffInMinutes = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60));
-
-  return { hours: diffInHours, minutes: diffInMinutes };
+const formatTimeDifference = ({ days, hours, minutes }) => {
+  const parts = [];
+  if (days) parts.push(`${days} day${checkIfPlural(days) ? "s" : ""}`);
+  if (hours) parts.push(`${hours} hour${checkIfPlural(hours) ? "s" : ""}`);
+  if (minutes)
+    parts.push(`${minutes} minute${checkIfPlural(minutes) ? "s" : ""}`);
+  return parts.join(", ");
 };
 
-
 const CalculateAlarmTriggerTime = ({ alarm }) => {
-  const currentTime = getCurrentTime();
-  const { time, days } = alarm;
+  const [timeDifference, setTimeDifference] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+  });
+ 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentTime = getCurrentTime();
+      const { days, hours, minutes } = alarm.days.repeat
+        ? calculateTimeDifferenceForRepeat(
+            currentTime,
+            alarm.time,
+            alarm.days.days
+          )
+        : calculateTimeDifferenceForNonRepeat(currentTime, alarm.time);
+      setTimeDifference({ days, hours, minutes });
+    }, 1000);
 
-  const alarmTime = {
-    hour: time.hours,
-    minute: time.minutes,
-    period: time.period,
-  };
-
-  const { hours, minutes } = calculateTimeDifference(currentTime, alarmTime);
+    return () => clearInterval(interval);
+  }, [alarm.time, alarm.days.repeat, alarm.days.days]);
 
   return (
     <div className="text-[13px] leading-[18px]">
-      {`in ${hours} hours, ${minutes} minutes`}
+      in {formatTimeDifference(timeDifference)}
     </div>
   );
 };
-
 export default CalculateAlarmTriggerTime;
