@@ -2,7 +2,6 @@ import React from "react";
 import { useEdit } from "../../store/useEditTimer";
 
 const ShowWeekDays = ({ day, repeat, disabled }) => {
-
   const { edit } = useEdit();
   return (
     <div

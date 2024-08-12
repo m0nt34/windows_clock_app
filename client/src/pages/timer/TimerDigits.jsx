@@ -8,7 +8,9 @@ import { secondsToTime } from "../../utils/secondsToTime";
 import { useEdit } from "../../store/useEditTimer";
 import { getTimerEndTime } from "../../utils/getTimerEndTime";
 import Bell from "../../assets/icons/Bell";
-const TimerDigits = ({ seconds, setPlaying }) => {
+import { useDismissPopup } from "../../store/useDismissPopup";
+const TimerDigits = ({ seconds, setPlaying, name }) => {
+  const { setShowDismiss, setName } = useDismissPopup();
   const [play, setPlay] = useState(false);
   const [secs, setSecs] = useState(seconds);
   const reset = useRef(false);
@@ -17,6 +19,12 @@ const TimerDigits = ({ seconds, setPlaying }) => {
   useEffect(() => {
     setSecs(seconds);
   }, [seconds]);
+  useEffect(() => {
+    if (secs === 0) {
+      setName(name);
+      setShowDismiss();
+    }
+  }, [secs]);
   const handlePlay = () => {
     setPlay((prev) => !prev);
     if (secs === 0) {

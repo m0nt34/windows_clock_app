@@ -6,13 +6,13 @@ export const getCurrentTime = () => {
     day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit",
     hour12: true,
   };
 
   const formatter = new Intl.DateTimeFormat([], options);
   const formattedDate = formatter.formatToParts(new Date());
-  
-  
+
   const dateTime = {
     year: "",
     month: "",
@@ -20,6 +20,7 @@ export const getCurrentTime = () => {
     day: "",
     hour: "",
     minute: "",
+    second: "",
     dayPeriod: "",
   };
 

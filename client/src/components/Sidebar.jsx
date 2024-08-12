@@ -7,7 +7,9 @@ import Stopwatch from "../assets/icons/Stopwatch";
 import Earth from "../assets/icons/Earth";
 import Bell from "../assets/icons/Bell";
 import Gear from "../assets/icons/Gear";
+import { Link, useLocation } from "react-router-dom";
 const Sidebar = () => {
+  const location = useLocation();
   return (
     <div className="flex flex-col justify-between gap-5 bg-[#202020] w-[281px] min-h-screen p-1 select-none">
       <div className="flex flex-col gap-2">
@@ -19,22 +21,36 @@ const Sidebar = () => {
           <FocusIcon />
           Focus sessions
         </div>
-        <div className="sidebar_comp active">
+        <Link
+          className={`sidebar_comp ${location.pathname === "/timer" ? "active" : null}`}
+          to="/timer"
+        >
           <Hourglass />
           Timer
-        </div>
-        <div className="sidebar_comp">
+        </Link>
+        <Link
+          className={`sidebar_comp ${location.pathname === "/alarm" ? "active" : null}`}
+          to="/alarm"
+        >
           <Bell />
           Alarm
-        </div>
-        <div className="sidebar_comp">
+        </Link>
+        <Link
+          className={`sidebar_comp ${location.pathname === "/" ? "active" : null}`}
+          to="/"
+        >
           <Stopwatch />
           Stopwatch
-        </div>
-        <div className="sidebar_comp">
+        </Link>
+        <Link
+          className={`sidebar_comp ${
+            location.pathname === "/world-time" ? "active" : null
+          }`}
+          to="world-time"
+        >
           <Earth />
           World clock
-        </div>
+        </Link>
       </div>
       <div className="flex flex-col gap-1">
         <div className="sidebar_comp">

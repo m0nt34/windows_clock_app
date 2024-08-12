@@ -46,7 +46,7 @@ const TimeDown = ({ id, name, seconds, setTimers }) => {
           </button>
         )}
       </header>
-      <TimerDigits seconds={seconds} setPlaying={setPlaying} />
+      <TimerDigits seconds={seconds} setPlaying={setPlaying} name={name}/>
     </div>
   );
 };

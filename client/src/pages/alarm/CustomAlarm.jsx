@@ -10,7 +10,7 @@ import { useDismissPopup } from "../../store/useDismissPopup";
 const CustomAlarm = ({ id, alarm, setAlarms }) => {
   const { setShow } = useShowPopup();
   const { edit, setEditTimer } = useEdit();
-  const { setShowDismiss } = useDismissPopup();
+
   const handleDelete = (e) => {
     e.stopPropagation();
     setAlarms((prev) => {
@@ -29,7 +29,6 @@ const CustomAlarm = ({ id, alarm, setAlarms }) => {
         id === i ? { ...alarm, disabled: !alarm.disabled } : alarm
       )
     );
-    setShowDismiss();
   };
   return (
     <div
@@ -82,7 +81,7 @@ const CustomAlarm = ({ id, alarm, setAlarms }) => {
         }`}
       >
         <Bell size={16} edit={edit || alarm.disabled} />
-        <CalculateAlarmTriggerTime alarm={alarm} />
+        <CalculateAlarmTriggerTime alarm={alarm} handleTurnDisabled={handleTurnDisabled}/>
       </div>
       <div
         className={`w-full ${

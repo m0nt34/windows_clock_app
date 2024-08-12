@@ -1,9 +1,27 @@
-import React from "react";
+import React ,{useEffect}from "react";
 import Clock from "../assets/images/clock.png";
 import Xmark from "../assets/icons/Xmark";
 import { useDismissPopup } from "../store/useDismissPopup";
+import alarmSound from "../assets/audio/windows_10_timerAlarm.mp3";
 const DismissPopup = () => {
   const { showDismiss, setShowDismiss, dismissName } = useDismissPopup();
+
+  useEffect(() => {
+    const audio = new Audio(alarmSound);
+    audio.loop = true;
+
+    if (showDismiss) {
+      audio.play();
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+ 
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, [showDismiss]);
   return (
     <div
       className={`absolute select-none ${
@@ -15,7 +33,10 @@ const DismissPopup = () => {
           <img src={Clock} className="h-4" />
           <p>Clock</p>
         </div>
-        <button onClick={setShowDismiss} className="hover:text-white text-[12px]">
+        <button
+          onClick={setShowDismiss}
+          className="hover:text-white text-[12px]"
+        >
           <Xmark />
         </button>
       </header>
