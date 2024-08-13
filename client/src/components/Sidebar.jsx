@@ -17,10 +17,11 @@ const Sidebar = () => {
           <img src={clockImg} alt="" className="h-[14px]" />
           Clock
         </header>
-        <div className="sidebar_comp">
+        <Link className={`sidebar_comp ${location.pathname === "/focus-session" ? "active" : null}`}
+          to="/focus-session">
           <FocusIcon />
           Focus sessions
-        </div>
+        </Link>
         <Link
           className={`sidebar_comp ${location.pathname === "/timer" ? "active" : null}`}
           to="/timer"
