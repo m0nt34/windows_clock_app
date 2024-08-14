@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import SetTime from "./SetTime";
+import { focus, breaks } from "../../data/focusSessionTimes";
+import CalculateBreaks from "./CalculateBreaks";
 const SetSession = () => {
-  const focus = [
-    10, 15, 20, 25, 30, 35, 40, 45, 50, 65, 80, 95, 110, 125, 140, 155, 170,
-    185, 200, 215, 230, 240,
-  ];
-  const breaks = [0, 5, 10, 15];
   const [session, setSession] = useState({
     focus: 0,
-    breaks: 1,
+    breaks: 0,
   });
   const handleClick = (unit, increment) => {
     setSession((prev) => ({
@@ -22,9 +19,24 @@ const SetSession = () => {
         <h1 className="text-xl font-medium">Get ready to focus</h1>
       </header>
       <div className="flex w-full justify-center gap-3">
-        <SetTime handleClick={handleClick} value={focus[session.focus]} unit="focus"/>
-        <SetTime handleClick={handleClick} value={breaks[session.breaks]} unit="breaks"/>
+        <div className="flex flex-col items-center gap-1">
+          <SetTime
+            handleClick={handleClick}
+            value={focus[session.focus]}
+            unit="focus"
+          />
+          <p className="text-[#c9c9c9] font-medium">focus</p>
+        </div>
+        <div className="flex flex-col items-center gap-1">
+          <SetTime
+            handleClick={handleClick}
+            value={breaks[session.breaks]}
+            unit="breaks"
+          />
+          <p className="text-[#c9c9c9] font-medium">break</p>
+        </div>
       </div>
+      <CalculateBreaks />
     </div>
   );
 };
