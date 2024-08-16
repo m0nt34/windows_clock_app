@@ -1,42 +1,36 @@
 import React, { useState } from "react";
 import SetTime from "./SetTime";
-import { focus, breaks } from "../../data/focusSessionTimes";
 import CalculateBreaks from "./CalculateBreaks";
+import { useFullFocusSession } from "../../store/useFullFocusSession";
+import Play from "../../assets/icons/Play";
 const SetSession = () => {
-  const [session, setSession] = useState({
-    focus: 0,
-    breaks: 0,
-  });
-  const handleClick = (unit, increment) => {
-    setSession((prev) => ({
-      ...prev,
-      [unit]: prev[unit] + (increment ? 1 : -1),
-    }));
-  };
+  const { toggleStartFocusSession } = useFullFocusSession();
   return (
-    <div className="bg-[#323232] rounded-[6px] border border-[#252525] shadow">
+    <div className="flex flex-col gap-5 bg-[#323232] rounded-[6px] px-5 pt-3 pb-7 border border-[#252525] shadow select-none">
       <header className="flex justify-center items-center w-full p-2">
-        <h1 className="text-xl font-medium">Get ready to focus</h1>
+        <h1 className="text-3xl font-medium">Get ready to focus</h1>
       </header>
-      <div className="flex w-full justify-center gap-3">
+      <div className="flex w-full justify-center gap-5">
         <div className="flex flex-col items-center gap-1">
-          <SetTime
-            handleClick={handleClick}
-            value={focus[session.focus]}
-            unit="focus"
-          />
+          <SetTime unit="focus" />
           <p className="text-[#c9c9c9] font-medium">focus</p>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <SetTime
-            handleClick={handleClick}
-            value={breaks[session.breaks]}
-            unit="breaks"
-          />
+          <SetTime unit="breaks" />
           <p className="text-[#c9c9c9] font-medium">break</p>
         </div>
       </div>
       <CalculateBreaks />
+      <div className="flex w-full items-center justify-center mt-2">
+        <button
+          onClick={toggleStartFocusSession}
+          type="button"
+          className="flex justify-center items-center gap-[10px] bg-customColor-blue px-3 py-[5px] rounded-[5px] text-black hover:bg-[#68a8d6]"
+        >
+          <Play />
+          Start focus session
+        </button>
+      </div>
     </div>
   );
 };

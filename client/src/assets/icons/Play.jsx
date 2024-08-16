@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-const Play = ({ className, edit = false }) => {
+const Play = ({ className="", edit = false }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

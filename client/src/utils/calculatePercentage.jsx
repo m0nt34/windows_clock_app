@@ -1,0 +1,1 @@
+export const calculatePercentage = (fs, fullTime) => (fs / fullTime) * 100;

@@ -1,5 +1,4 @@
-export const focus = [
+export const times = [
   5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 65, 80, 95, 110, 125, 140, 155, 170,
   185, 200, 215, 230, 240,
 ];
-export const breaks = [5, 10, 15];
