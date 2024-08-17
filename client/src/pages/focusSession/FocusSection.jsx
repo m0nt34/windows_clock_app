@@ -11,10 +11,9 @@ const FocusSection = () => {
   const currentTimePeriod = useRef(0);
   const timer = useRef(null);
   const { focusSession, toggleStartFocusSession } = useFullFocusSession();
-  const { setShowDismiss } = useDismissPopup();
-  const [secs, setSecs] = useState(
-    focusSession[currentTimePeriod.current] 
-  );
+  const { setShowDismiss, setShowTimeOnDismiss, setMainName, setName } =
+    useDismissPopup();
+  const [secs, setSecs] = useState(focusSession[currentTimePeriod.current]);
   const [playing, setPlaying] = useState(true);
 
   const [show, setShow] = useState(false);
@@ -28,13 +27,12 @@ const FocusSection = () => {
             if (currentTimePeriod.current + 0.5 > focusSession.length) {
               clearInterval(timer.current);
               setPlaying(false);
-            
             } else {
               currentTimePeriod.current += 0.5;
             }
             return currentTimePeriod.current >= focusSession.length
               ? 0
-              : focusSession[currentTimePeriod.current] ;
+              : focusSession[currentTimePeriod.current];
           } else {
             return prev - 1;
           }
@@ -43,15 +41,24 @@ const FocusSection = () => {
     } else {
       clearInterval(timer.current);
     }
-
+ 
     return () => clearInterval(timer.current);
   }, [playing, focusSession]);
+
+  useEffect(() => {
+    if (secs === 0 && currentTimePeriod.current + 1 >= focusSession.length) {
+      setName("You have finished your focus session");
+      setMainName("Great job!");
+      setShowTimeOnDismiss(false);
+      setShowDismiss();
+    }
+  }, [secs]);
 
   const timerDisplay = useMemo(() => {
     const checkIfBlue = (i) => {
       const x =
-        ((focusSession[currentTimePeriod.current]  - secs) * 24) /
-        (focusSession[currentTimePeriod.current] );
+        ((focusSession[currentTimePeriod.current] - secs) * 24) /
+        focusSession[currentTimePeriod.current];
       return x > i;
     };
     return (

@@ -29,6 +29,7 @@ const CalculateAlarmTriggerTime = ({ alarm, handleTurnDisabled }) => {
 
   useEffect(() => {
     const checkIfTriggerAlarm = () => {
+      
       if (
         timeDifference.days === 0 &&
         timeDifference.hours === 0 &&
