@@ -1,10 +1,18 @@
-import React ,{useEffect}from "react";
+import React, { useEffect, useState } from "react";
 import Clock from "../assets/images/clock.png";
 import Xmark from "../assets/icons/Xmark";
 import { useDismissPopup } from "../store/useDismissPopup";
 import alarmSound from "../assets/audio/windows_10_timerAlarm.mp3";
+import { getCurrentTime } from "../utils/getCurrentTime";
 const DismissPopup = () => {
-  const { showDismiss, setShowDismiss, dismissName } = useDismissPopup();
+  const [currTime] = useState(getCurrentTime);
+  const {
+    showDismiss,
+    setShowDismiss,
+    dismissName,
+    showTimeOnDismiss,
+    dismissMainName,
+  } = useDismissPopup();
 
   useEffect(() => {
     const audio = new Audio(alarmSound);
@@ -16,7 +24,7 @@ const DismissPopup = () => {
       audio.pause();
       audio.currentTime = 0;
     }
- 
+
     return () => {
       audio.pause();
       audio.currentTime = 0;
@@ -41,13 +49,15 @@ const DismissPopup = () => {
         </button>
       </header>
       <div className="flex flex-col py-4 mb-2">
-        <h1 className="font-medium">Timer done</h1>
+        <h1 className="font-medium">{dismissMainName}</h1>
         <p className="flex items-center text-[#868686] leading-[16px] mb-1">
           {dismissName}
         </p>
-        <p className="flex items-center text-[#868686] leading-[16px]">
-          7:11 PM
-        </p>
+        {showTimeOnDismiss && (
+          <p className="flex items-center text-[#868686] leading-[16px]">
+            {currTime.hour}:{currTime.minute} {currTime.dayPeriod}
+          </p>
+        )}
       </div>
       <button
         onClick={setShowDismiss}

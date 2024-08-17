@@ -18,14 +18,14 @@ const formatTimeDifference = ({ days, hours, minutes, seconds }) => {
 };
 
 const CalculateAlarmTriggerTime = ({ alarm, handleTurnDisabled }) => {
-  const { setShowDismiss, setName } = useDismissPopup();
+  const { setShowDismiss, setName, setShowTimeOnDismiss, setMainName } =
+    useDismissPopup();
   const [timeDifference, setTimeDifference] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 2,
   });
-
 
   useEffect(() => {
     const checkIfTriggerAlarm = () => {
@@ -37,8 +37,10 @@ const CalculateAlarmTriggerTime = ({ alarm, handleTurnDisabled }) => {
         !alarm.disabled
       ) {
         setName(alarm.name);
+        setMainName("Alarm");
+        setShowTimeOnDismiss(true);
         setShowDismiss();
-        if(!alarm.days.repeat){
+        if (!alarm.days.repeat) {
           handleTurnDisabled();
         }
       }
