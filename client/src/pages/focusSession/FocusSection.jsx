@@ -13,7 +13,7 @@ const FocusSection = () => {
   const { focusSession, toggleStartFocusSession } = useFullFocusSession();
   const { setShowDismiss, setShowTimeOnDismiss, setMainName, setName } =
     useDismissPopup();
-  const [secs, setSecs] = useState(focusSession[currentTimePeriod.current]);
+  const [secs, setSecs] = useState(focusSession[currentTimePeriod.current] * 60); // Updated to minutes
   const [playing, setPlaying] = useState(true);
 
   const [show, setShow] = useState(false);
@@ -32,7 +32,7 @@ const FocusSection = () => {
             }
             return currentTimePeriod.current >= focusSession.length
               ? 0
-              : focusSession[currentTimePeriod.current];
+              : focusSession[currentTimePeriod.current] * 60; // Updated to minutes
           } else {
             return prev - 1;
           }
@@ -41,7 +41,7 @@ const FocusSection = () => {
     } else {
       clearInterval(timer.current);
     }
- 
+
     return () => clearInterval(timer.current);
   }, [playing, focusSession]);
 
@@ -57,8 +57,8 @@ const FocusSection = () => {
   const timerDisplay = useMemo(() => {
     const checkIfBlue = (i) => {
       const x =
-        ((focusSession[currentTimePeriod.current] - secs) * 24) /
-        focusSession[currentTimePeriod.current];
+        ((focusSession[currentTimePeriod.current] * 60 - secs) * 24) / // Updated to minutes
+        (focusSession[currentTimePeriod.current] * 60); // Updated to minutes
       return x > i;
     };
     return (
